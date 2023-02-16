@@ -14,9 +14,11 @@ class Calculator {
     delete() {
         this.currentNumber = this.currentNumber.toString().slice(0, -1)
     }
+    
 
     addToDisplay(number) {
         if (number === '.' && this.currentNumber.includes('.')) return
+        if(number === '0' && this.currentNumber.toString() === '0') return
         this.currentNumber = this.currentNumber.toString() + number.toString()
     }
 
@@ -64,6 +66,7 @@ class Calculator {
             case '/':
                 if (current !== 0) {
                     operant = this.divide(previous, current);
+                    break
                 }
                 else {
                     this.currentNumber = "Can not divide by 0!";
@@ -73,9 +76,10 @@ class Calculator {
             default:
                 return
         }
-        this.currentNumber = operant.toFixed((2))
+        this.currentNumber = operant
         this.operant = undefined
         this.previousNumber = ''
+        this.operation = ''
     }
 
     updateDisplay() {
@@ -85,6 +89,7 @@ class Calculator {
                 `${this.previousNumber} ${this.operation}`
         } else {
             this.partialTextElement.innerText = ''
+            this.operation = ''
         }
     }
 }
